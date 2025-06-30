@@ -10,14 +10,14 @@ namespace CalculationAPI.Tests.Service
     {
         private Mock<IOperationFactory<decimal>>? _mockFactory;
         private Mock<IOperationStrategy<decimal>>? _mockStrategy;
-        private OperationService? _service;
+        private OperationService<decimal>? _service;
 
         [TestInitialize]
         public void Setup()
         {
             _mockFactory = new Mock<IOperationFactory<decimal>>();
             _mockStrategy = new Mock<IOperationStrategy<decimal>>();
-            _service = new OperationService(_mockFactory.Object);
+            _service = new OperationService<decimal>(_mockFactory.Object);
         }
 
         [TestMethod]

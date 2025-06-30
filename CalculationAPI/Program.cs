@@ -10,11 +10,12 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers().AddJsonOptions(option => option.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
-builder.Services.AddScoped<IOperationService<decimal>, OperationService>();
+builder.Services.AddScoped<IOperationService<decimal>, OperationService<decimal>>();
 builder.Services.AddScoped<Addition<decimal>>();
 builder.Services.AddScoped<Substraction<decimal>>();
 builder.Services.AddScoped<Multiplication<decimal>>();
 builder.Services.AddScoped<Division<decimal>>();
+builder.Services.AddScoped<IOperationFactory<decimal>, OperationFactory<decimal>>();
 
 builder.Services.AddApiVersioning(options =>
 {
@@ -23,7 +24,7 @@ builder.Services.AddApiVersioning(options =>
     options.ReportApiVersions = true; // Adds headers like api-supported-versions
 });
 
-builder.Services.AddScoped<IOperationFactory<decimal>, OperationFactory<decimal>>();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

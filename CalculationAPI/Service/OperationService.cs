@@ -1,22 +1,22 @@
 ﻿using CalculationAPI.Interface;
 using CalculationAPI.Model;
+using System.Numerics;
 
 namespace CalculationAPI.Service
 {
-    public class OperationService : IOperationService<decimal>
+    public class OperationService<T> : IOperationService<T> where T : INumber<T>
     {
-        private readonly IOperationFactory<decimal> _factory;
+        private readonly IOperationFactory<T> _factory;
 
-        public OperationService(IOperationFactory<decimal> factory)
+        public OperationService(IOperationFactory<T> factory)
         {
             _factory = factory;
         }
 
-        public async Task<decimal> CalculateAsync(OperationType type, decimal first, decimal second)
+        public async Task<T> CalculateAsync(OperationType type, T first, T second)
         {
             var strategy = _factory.GetOperationStrategy(type);
             return await strategy.CalculateAsync(first, second);
-
         }
     }
 }
